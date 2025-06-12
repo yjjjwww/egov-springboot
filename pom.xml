@@ -32,6 +32,16 @@
 	</properties>
 	
 	<repositories>
+		<repository>
+            <id>mvn2s</id>
+            <url>https://repo1.maven.org/maven2/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
         <repository>
 			<id>egovframe</id>
 			<url>https://maven.egovframe.go.kr/maven/</url>
@@ -185,11 +195,6 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>egov</groupId>
-			<artifactId>template-simple</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 		  <groupId>org.springframework.boot</groupId>

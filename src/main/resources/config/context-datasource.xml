@@ -20,9 +20,9 @@
     <alias name="dataSource-${Globals.DbType}" alias="egov.dataSource" />
     
 	<!-- hsql -->
-    <jdbc:embedded-database id="dataSource-hsql" type="HSQL">
+    <!-- <jdbc:embedded-database id="dataSource-hsql" type="HSQL">
 		<jdbc:script location= "classpath:/db/shtdb.sql"/>
-	</jdbc:embedded-database>
+	</jdbc:embedded-database> -->
 	
  	<!-- <bean id="dataSource-hsql" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>

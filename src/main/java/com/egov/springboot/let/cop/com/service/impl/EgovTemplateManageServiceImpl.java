@@ -43,7 +43,7 @@ public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl imple
     /**
      * 템플릿 정보를 삭제한다.
      * 
-     * @see egovframework.let.cop.bbs.com.service.EgovTemplateManageService#deleteTemplateInf(egovframework.let.cop.bbs.com.service.TemplateInf)
+     * @see com.egov.springboot.let.cop.bbs.com.service.EgovTemplateManageService#deleteTemplateInf(com.egov.springboot.let.cop.bbs.com.service.TemplateInf)
      */
     public void deleteTemplateInf(TemplateInf tmplatInf) throws Exception {
 	tmplatDAO.deleteTemplateInf(tmplatInf);
@@ -52,7 +52,7 @@ public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl imple
     /**
      * 템플릿 정보를 등록한다.
      * 
-     * @see egovframework.let.cop.bbs.com.service.EgovTemplateManageService#insertTemplateInf(egovframework.let.cop.bbs.com.service.TemplateInf)
+     * @see com.egov.springboot.let.cop.bbs.com.service.EgovTemplateManageService#insertTemplateInf(com.egov.springboot.let.cop.bbs.com.service.TemplateInf)
      */
     public void insertTemplateInf(TemplateInf tmplatInf) throws Exception {
 
@@ -64,7 +64,7 @@ public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl imple
     /**
      * 템플릿에 대한 상세정보를 조회한다.
      * 
-     * @see egovframework.let.cop.bbs.com.service.EgovTemplateManageService#selectTemplateInf(egovframework.let.cop.bbs.com.service.TemplateInfVO)
+     * @see com.egov.springboot.let.cop.bbs.com.service.EgovTemplateManageService#selectTemplateInf(com.egov.springboot.let.cop.bbs.com.service.TemplateInfVO)
      */
     public TemplateInfVO selectTemplateInf(TemplateInfVO tmplatInfVO) throws Exception {
 	TemplateInfVO vo = new TemplateInfVO();
@@ -75,7 +75,7 @@ public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl imple
     /**
      * 템플릿에 대한 목록를 조회한다.
      * 
-     * @see egovframework.let.cop.bbs.com.service.EgovTemplateManageService#selectTemplateInfs(egovframework.let.cop.bbs.com.service.TemplateInfVO)
+     * @see com.egov.springboot.let.cop.bbs.com.service.EgovTemplateManageService#selectTemplateInfs(com.egov.springboot.let.cop.bbs.com.service.TemplateInfVO)
      */
     public Map<String, Object> selectTemplateInfs(TemplateInfVO tmplatInfVO) throws Exception {
 	List<TemplateInfVO> result = tmplatDAO.selectTemplateInfs(tmplatInfVO);
@@ -92,7 +92,7 @@ public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl imple
     /**
      * 템플릿에 대한 미리보기 정보를 조회한다.
      * 
-     * @see egovframework.let.cop.bbs.com.service.EgovTemplateManageService#selectTemplatePreview(egovframework.let.cop.bbs.com.service.TemplateInfVO)
+     * @see com.egov.springboot.let.cop.bbs.com.service.EgovTemplateManageService#selectTemplatePreview(com.egov.springboot.let.cop.bbs.com.service.TemplateInfVO)
      */
     public TemplateInfVO selectTemplatePreview(TemplateInfVO tmplatInfVO) throws Exception {
 	TemplateInfVO vo = new TemplateInfVO();
@@ -105,7 +105,7 @@ public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl imple
     /**
      * 템플릿 정보를 수정한다.
      * 
-     * @see egovframework.let.cop.bbs.com.service.EgovTemplateManageService#updateTemplateInf(egovframework.let.cop.bbs.com.service.TemplateInf)
+     * @see com.egov.springboot.let.cop.bbs.com.service.EgovTemplateManageService#updateTemplateInf(com.egov.springboot.let.cop.bbs.com.service.TemplateInf)
      */
     public void updateTemplateInf(TemplateInf tmplatInf) throws Exception {
 	tmplatDAO.updateTemplateInf(tmplatInf);
@@ -114,7 +114,7 @@ public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl imple
     /**
      * 템플릿 구분에 따른 목록을 조회한다.
      * 
-     * @see egovframework.let.cop.bbs.com.service.EgovTemplateManageService#selectAllTemplateInfs(egovframework.let.cop.bbs.com.service.TemplateInfVO)
+     * @see com.egov.springboot.let.cop.bbs.com.service.EgovTemplateManageService#selectAllTemplateInfs(com.egov.springboot.let.cop.bbs.com.service.TemplateInfVO)
      */
     public List<TemplateInfVO> selectTemplateInfsByCode(TemplateInfVO tmplatInfVO) throws Exception {
 	return tmplatDAO.selectTemplateInfsByCode(tmplatInfVO);

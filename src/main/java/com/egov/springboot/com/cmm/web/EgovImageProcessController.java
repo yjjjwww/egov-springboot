@@ -44,7 +44,7 @@ import com.egov.springboot.com.cmm.service.FileVO;
  *
  */
 @Controller
-public class EgovImageProcessController extends HttpServlet {
+public class EgovImageProcessController {
 
     /**
 	 *  serialVersion UID

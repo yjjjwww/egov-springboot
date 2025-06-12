@@ -2,16 +2,17 @@ package com.egov.springboot.com.cmm.service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 //import java.io.FileNotFoundException;
 //import java.io.IOException;
 //import java.util.Properties;
@@ -38,93 +39,56 @@ public class EgovProperties{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovProperties.class);
 
-	//프로퍼티값 로드시 에러발생하면 반환되는 에러문자열
-	public static final String ERR_CODE =" EXCEPTION OCCURRED";
-	public static final String ERR_CODE_FNFE =" EXCEPTION(FNFE) OCCURRED";
-	public static final String ERR_CODE_IOE =" EXCEPTION(IOE) OCCURRED";
+    // 프로퍼티값 로드시 에러발생하면 반환되는 에러문자열
+    public static final String ERR_CODE = " EXCEPTION OCCURRED";
+    public static final String ERR_CODE_FNFE = " EXCEPTION(FNFE) OCCURRED";
+    public static final String ERR_CODE_IOE = " EXCEPTION(IOE) OCCURRED";
 
-	//파일구분자
-    static final char FILE_SEPARATOR     = File.separatorChar;
+    // 파일구분자
+    static final char FILE_SEPARATOR = File.separatorChar;
 
-	//프로퍼티 파일의 물리적 위치
-    /*public static final String GLOBALS_PROPERTIES_FILE
-    = System.getProperty("user.home") + System.getProperty("file.separator") + "egovProps"
-    + System.getProperty("file.separator") + "globals.properties";*/
+    // Spring Environment 객체
+    private static Environment environment;
+    
+    // ApplicationContext 객체
+    private static ApplicationContext context;
 
-    public static final String RELATIVE_PATH_PREFIX = EgovProperties.class.getResource("").getPath()
-    + System.getProperty("file.separator") + ".." + System.getProperty("file.separator")
-    + ".." + System.getProperty("file.separator") + ".." + System.getProperty("file.separator");
-
-    public static final String GLOBALS_PROPERTIES_FILE
-    = RELATIVE_PATH_PREFIX + "egovProps" + System.getProperty("file.separator") + "globals.properties";
-
-
+    @Autowired
+    public EgovProperties(Environment environment, ApplicationContext context) {
+        EgovProperties.environment = environment;
+        EgovProperties.context = context;
+    }
 
     /**
-	 * 인자로 주어진 문자열을 Key값으로 하는 상대경로 프로퍼티 값을 절대경로로 반환한다(Globals.java 전용)
-	 * @param keyName String
-	 * @return String
-
-	public static String getPathProperty(String keyName){
-		String value = ERR_CODE;
-		value="99";
-		debug(GLOBALS_PROPERTIES_FILE + " : " + keyName);
-		FileInputStream fis = null;
-		try{
-			Properties props = new Properties();
-			fis  = new FileInputStream(GLOBALS_PROPERTIES_FILE);
-			props.load(new java.io.BufferedInputStream(fis));
-			value = props.getProperty(keyName).trim();
-			value = RELATIVE_PATH_PREFIX + "egovProps" + System.getProperty("file.separator") + value;
-		}catch(FileNotFoundException fne){
-			debug(fne);
-		}catch(IOException ioe){
-			debug(ioe);
-		}catch(Exception e){
-			debug(e);
-		}finally{
-			try {
-				if (fis != null) fis.close();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-
-		}
-		return value;
-	}
-*/
-
-	/**
-	 * 인자로 주어진 문자열을 Key값으로 하는 프로퍼티 값을 반환한다(Globals.java 전용)
-	 * @param keyName String
-	 * @return String
-	*/
-	public static String getProperty(String keyName) {
-		String value = ERR_CODE;
-		value = "99";
-		debug(GLOBALS_PROPERTIES_FILE + " : " + keyName);
-		FileInputStream fis = null;
-		try {
-			Properties props = new Properties();
-			fis = new FileInputStream(GLOBALS_PROPERTIES_FILE);
-			props.load(new java.io.BufferedInputStream(fis));
-			value = props.getProperty(keyName).trim();
-		} catch (FileNotFoundException fne) {
-			debug(fne);
-		} catch (IOException ioe) {
-			debug(ioe);
-		} finally {
-			try {
-				if (fis != null) {
-					fis.close();
-				}
-			} catch (IOException ioe) {
-				debug(ioe);
-			}
-
-		}
-		return value;
-	}
+     * 인자로 주어진 문자열을 Key값으로 하는 프로퍼티 값을 반환한다(application.properties 사용)
+     * @param keyName String
+     * @return String
+     */
+    public static String getProperty(String keyName) {
+        if (environment == null) {
+            // ApplicationContext에서 Environment 가져오기 시도
+            try {
+                if (context != null) {
+                    environment = context.getEnvironment();
+                } else {
+                    LOGGER.error("ApplicationContext is not initialized.");
+                    return ERR_CODE;
+                }
+            } catch (Exception e) {
+                LOGGER.error("Failed to get Environment: {}", e.getMessage());
+                return ERR_CODE;
+            }
+        }
+        
+        String value = environment.getProperty(keyName);
+        
+        if (value == null) {
+            LOGGER.debug("Property '{}' not found in application.properties", keyName);
+            return ERR_CODE;
+        }
+        
+        return value.trim();
+    }
 	
 	/**
 	 * 주어진 파일에서 인자로 주어진 문자열을 Key값으로 하는 프로퍼티 상대 경로값을 절대 경로값으로 반환한다
